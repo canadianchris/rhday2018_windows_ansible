@@ -1,0 +1,14 @@
+---
+- name: Install some cool tools
+  gather_facts: no
+
+  tasks:
+    - name: Install procexp
+      win_chocolatey:
+        name: procexp
+        state: present
+      
+    - name: Install git
+      win_chocolatey:
+        name: git
+        state: present

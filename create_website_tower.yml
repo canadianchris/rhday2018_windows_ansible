@@ -1,0 +1,39 @@
+---
+# This playbook will update a windows server with the latest critical updates and then install IIS
+- name: Update windows servers & create awesome website
+  hosts: windows
+  gather_facts: no
+
+  tasks:
+    - name: Using configured update method to update
+      win_updates:
+          reboot: yes
+          category_names: CriticalUpdates
+          state: installed
+
+    - name: Create directory for Website content
+      win_file:
+        path: c:\sites
+        state: directory
+
+    - name: Get awesome website content
+      win_command: git clone https://github.com/canadianchris/ansiblerocks
+      args:
+          chdir: c:\sites 
+
+    - name: Install / configure IIS
+      win_feature:
+          name: Web-Server
+          state: present
+
+    - name: Remove the default web site
+      win_iis_website:
+        name: "Default Web Site"
+        state: absent
+
+    - name: Create new awesome website
+      win_iis_website:
+        name: "AnsibleRocks"
+        physical_path: c:\sites\ansiblerocks
+        state: started
+
