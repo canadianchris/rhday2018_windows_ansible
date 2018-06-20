@@ -1,6 +1,7 @@
 ---
 - name: Install some cool tools
   gather_facts: no
+  hosts: localhost
 
   tasks:
     - name: Install procexp
