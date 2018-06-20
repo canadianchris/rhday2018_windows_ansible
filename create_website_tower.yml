@@ -3,6 +3,10 @@
 - name: Update windows servers & create awesome website
   hosts: all
   gather_facts: no
+  ansible_connection: winrm
+  ansible_winrm_transport: basic
+  ansible_winrm_server_cert_validation: ignore
+
 
   tasks:
     - name: Using configured update method to update
