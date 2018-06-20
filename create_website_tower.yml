@@ -1,7 +1,7 @@
 ---
 # This playbook will update a windows server with the latest critical updates and then install IIS
 - name: Update windows servers & create awesome website
-  hosts: localhost
+  hosts: all
   gather_facts: no
 
   tasks:
