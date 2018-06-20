@@ -2,22 +2,16 @@
 # This playbook will update a windows server with the latest critical updates and then install IIS
 - name: Update windows servers & create awesome website
   hosts: windows
+  gather_facts: no
 
   tasks:
     - name: Using configured update method to update
       win_updates:
           reboot: yes
-          category_names: 
-            - SecurityUpdates 
-            - CriticalUpdates
+          category_names: CriticalUpdates
           state: installed
 
-    - name: Install git
-      win_chocolatey:
-        name: git
-        state: present
-
-    - name: Create director for Website content
+    - name: Create directory for Website content
       win_file:
         path: c:\sites
         state: directory
